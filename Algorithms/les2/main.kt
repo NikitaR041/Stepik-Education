@@ -54,7 +54,7 @@ fun fun3(base: Double, exponent: Int):Double {
 */
 
 /*
-Задача 4
+Задача 4 - OK
 Создайте рекурсивную функцию isPalindrome, которая проверяет, является ли строка палиндромом.
 */
 
@@ -85,13 +85,21 @@ fun fun5(s: String, left: Int = 0, right: Int = s.length - 1): Boolean {
 // }
 
 /*
-Задача 5
+Задача 5 - OK
 Создайте рекурсивную функцию countZeros, 
 которая принимает целое число и возвращает количество нулей в его десятичной записи.
 */
 
+fun fun6(num_str: String, count: Int = 0, index: Int = 0):Int{
+    return when {
+        index >= num_str.length -> count
+        num_str[index] == '0' -> fun6(num_str, count + 1, index + 1)
+        else -> fun6(num_str, count, index+1)
+    }
+}
+
 fun main(){
-    val text = "kotlin"
-    val sortedText = text.toList().sorted().joinToString("")
-    println(sortedText)
+    val num_str : Int = readLine()!!.toInt()
+    val sortedText : String = num_str.toString().toList().sorted().joinToString("")
+    println(fun6(sortedText))
 }
