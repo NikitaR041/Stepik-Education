@@ -42,3 +42,44 @@ fun fun3(base: Double, exponent: Int):Double {
 //     // println(fun3(base, exponent))
 //     println("%.2f".format(fun3(base, exponent))) 
 // }
+
+/*
+Задача 3 - пока сложная задача
+Напишите рекурсивную функцию, которая будет решать задачу о Ханойских башнях.
+Задача о Ханойской башне является классической задачей теории алгоритмов, представляющей собой головоломку, которая была придумана в 1883 году французским математиком Эдуардом Лукасом.
+Представьте три стержня, на один из которых нанизаны N дисков разного размера в порядке возрастания к вершине (самый большой диск находится снизу). 
+Задача состоит в том, чтобы переместить всю стопку дисков на другой стержень, соблюдая следующие правила:
+За один ход можно переместить только один диск.
+Ни в какой момент времени диск большего размера не может находиться поверх диска меньшего размера.
+*/
+
+/*
+Задача 4
+Создайте рекурсивную функцию isPalindrome, которая проверяет, является ли строка палиндромом.
+*/
+
+fun fun4(stroka: String, lenStroka: Int, index: Int, count: Int):Boolean{
+    return when{
+        lenStroka in 0..1 -> true 
+        count == 0 -> true
+        count != 0 && stroka[index] == stroka[lenStroka-1] -> fun4(stroka, lenStroka-1,index+1, count-1)
+        else -> false
+    }
+}
+
+// ИЛИ 
+
+fun fun5(s: String, left: Int = 0, right: Int = s.length - 1): Boolean {
+    return when {
+        left >= right -> true
+        s[left] != s[right] -> false
+        else -> isPalindrome(s, left + 1, right - 1)
+    }
+}
+
+// fun main(){
+//     val s : String = readLine()!!
+//     val index : Int = 0
+//     println(if (fun4(s, s.length, index, s.length/2)) "True" else "False")
+//     println(if (fun5(s)) "True" else "False")
+// }
