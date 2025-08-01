@@ -73,7 +73,7 @@ fun fun5(s: String, left: Int = 0, right: Int = s.length - 1): Boolean {
     return when {
         left >= right -> true
         s[left] != s[right] -> false
-        else -> isPalindrome(s, left + 1, right - 1)
+        else -> fun5(s, left + 1, right - 1)
     }
 }
 
@@ -83,3 +83,15 @@ fun fun5(s: String, left: Int = 0, right: Int = s.length - 1): Boolean {
 //     println(if (fun4(s, s.length, index, s.length/2)) "True" else "False")
 //     println(if (fun5(s)) "True" else "False")
 // }
+
+/*
+Задача 5
+Создайте рекурсивную функцию countZeros, 
+которая принимает целое число и возвращает количество нулей в его десятичной записи.
+*/
+
+fun main(){
+    val text = "kotlin"
+    val sortedText = text.toList().sorted().joinToString("")
+    println(sortedText)
+}
