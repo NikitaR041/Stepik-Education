@@ -98,8 +98,12 @@ fun fun6(num_str: String, count: Int = 0, index: Int = 0):Int{
     }
 }
 
-fun main(){
-    val num_str : Int = readLine()!!.toInt()
-    val sortedText : String = num_str.toString().toList().sorted().joinToString("")
-    println(fun6(sortedText))
-}
+// fun main(){
+//     val num_str : Int = readLine()!!.toInt()
+//     val sortedText : String = num_str.toString().toList().sorted().joinToString("")
+//     println(fun6(sortedText))
+// }
+
+/*
+
+*/
