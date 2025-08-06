@@ -205,8 +205,79 @@ fun f6(numbers: IntArray){
     }
 }
 
+// fun main(){
+//     var numbers = readLine()!!.split(" ").map{it.toInt()}.toIntArray()
+//     f6(numbers)
+//     print(numbers.joinToString(" "))
+// }
+
+/*
+Задача 6
+Дан массив. 
+Преобразовать исходный массив, вычитая из значений отрицательных элементов массива количество положительных значений, 
+а из значений положительных элементов массива количество отрицательных значений.
+
+Формат входных данных
+Исходные данные являются целыми числами в диапазоне от -10^6 до 10^6.
+Формат выходных данных
+Выведите преобразованный массив. Все элементы должны быть выведены в одной строке и разделяться одним пробелом.
+
+Sample Input:
+12 -30 23 43 1 -3 18 -25 44 31 -28 54 4 14 6 -40 12 -10 -23 21
+Sample Output:
+5 -43 16 36 -6 -16 11 -38 37 24 -41 47 -3 7 -1 -53 5 -23 -36 14
+*/
+
+fun f7(numbers: IntArray){
+    var c1 : Int = 0
+    var c2 : Int = 0
+    for (value in numbers){
+        when {
+            value < 0 -> c1++
+            value > 0 -> c2++
+        }
+    }
+    for (index in 0..numbers.lastIndex){
+        when {
+            numbers[index] < 0 -> numbers[index] = numbers[index] - c2
+            numbers[index] > 0 -> numbers[index] = numbers[index] - c1
+        } 
+    }
+}
+
+// fun main(){
+//     var numbers = readLine()!!.split(" ").map{it.toInt()}.toIntArray()
+//     f7(numbers)
+//     println(numbers.joinToString(" "))
+// }
+
+/*
+Задание 7
+Дан массив целых чисел. 
+Преобразовать исходный массив, переставляя в обратном порядке элементы между максимальным и минимальным значениями 
+массива, включая их.
+
+Формат входных данных
+Исходные данные являются целыми числами в диапазоне от -10^6 до 10^6.
+Формат выходных данных
+
+Выведите преобразованный массив. Все элементы должны быть выведены в одной строке и разделяться одним пробелом.
+
+Sample Input:
+12 -30 23 43 1 -3 18 -25 44 31 -28 54 4 14 6 -40 12 -10 -23 21
+Sample Output:
+12 -30 23 43 1 -3 18 -25 44 31 -28 -40 6 14 4 54 12 -10 -23 21
+*/
+fun f8(numbers: IntArray){
+    var min1_index = 0
+    var max1_index = 0
+    var tmp_numbers = numbers.copyOf().sorted()
+    min1_index = numbers.indexOf(tmp_numbers[0])
+    max1_index = numbers.indexOf(tmp_numbers[tmp_numbers.size-1])
+
+}
+
 fun main(){
     var numbers = readLine()!!.split(" ").map{it.toInt()}.toIntArray()
-    f6(numbers)
-    print(numbers.joinToString(" "))
+    f8(numbers)
 }
