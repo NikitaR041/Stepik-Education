@@ -179,3 +179,34 @@ fun secondMax(arr: IntArray): Int {
 //     println(secondMax(numbers))
 // }
 
+/*
+Задача 5
+Дан массив чисел. Преобразовать исходный массив, вычитая максимальное значение массива из элементов массива, идущих после минимального.
+
+Формат входных данных
+
+Исходные данные являются целыми числами в диапазоне от -10^6 до 10^6.
+
+Формат выходных данных
+Выведите преобразованный массив. Все элементы должны быть выведены в одной строке и разделяться одним пробелом.
+Sample Input:
+12 -30 23 43 1 -3 18 -25 44 31 -28 54 4 14 6 -40 12 -10 -23 21
+Sample Output:
+12 -30 23 43 1 -3 18 -25 44 31 -28 54 4 14 6 -40 -42 -64 -77 -33
+*/
+fun f6(numbers: IntArray){
+    var max1 = 0 
+    var min1_index = 0
+    var tmp_numbers = numbers.copyOf().sorted()
+    min1_index = numbers.indexOf(tmp_numbers[0]) + 1 //Нужно брать слующий за минимальным по величине элемента
+    max1 = tmp_numbers[numbers.size-1]
+    for (i in min1_index..numbers.lastIndex){
+        numbers[i] = numbers[i] - max1
+    }
+}
+
+fun main(){
+    var numbers = readLine()!!.split(" ").map{it.toInt()}.toIntArray()
+    f6(numbers)
+    print(numbers.joinToString(" "))
+}
