@@ -268,16 +268,32 @@ Sample Input:
 Sample Output:
 12 -30 23 43 1 -3 18 -25 44 31 -28 -40 6 14 4 54 12 -10 -23 21
 */
+//Необязательно прописывать Unit, но пусть будет здесь, чтобы не забыть, что он существует
+fun swap(numbers: IntArray, min1_index: Int, max1_index: Int) : Unit {
+    var C : Int = numbers[min1_index]
+    numbers[min1_index] = numbers[max1_index]
+    numbers[max1_index] = C
+}
+
 fun f8(numbers: IntArray){
+    var count_move = 0
     var min1_index = 0
     var max1_index = 0
-    var tmp_numbers = numbers.copyOf().sorted()
+    var tmp_numbers = numbers.copyOf().sortedArray()
     min1_index = numbers.indexOf(tmp_numbers[0])
     max1_index = numbers.indexOf(tmp_numbers[tmp_numbers.size-1])
+    count_move = (max1_index - min1_index) * (-1)
+    swap(numbers, min1_index, max1_index)
+    // println(listOf(count_move, min1_index, numbers[min1_index], max1_index, numbers[max1_index]).joinToString(" "))
+    for (index in 0..count_move){
+        swap(numbers, min1_index+index, max1_index-index)
+    }
 
 }
 
+/*
 fun main(){
     var numbers = readLine()!!.split(" ").map{it.toInt()}.toIntArray()
     f8(numbers)
-}
+    println(numbers.joinToString(" "))
+}*/
