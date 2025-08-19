@@ -65,3 +65,70 @@ Sample Output:
 0 1 2 2 
 1 2 2 2 
 */
+
+/*
+Задача 3.
+Проверьте, является ли двумерный массив симметричным относительно главной диагонали. 
+Главная диагональ — та, которая идёт из левого верхнего угла двумерного массива в правый нижний.
+
+Входные данные
+Программа получает на вход число n (n≤100), являющееся числом строк и столбцов в массиве. 
+Далее во входном потоке идет n строк по n чисел, являющихся элементами массива. 
+Числа по модулю не превышают 2^31−1.
+
+Выходные данные
+Программа должна выводить слово yes для симметричного массива и слово no для несимметричного.
+
+Sample Input 1:
+3
+0 1 2
+1 5 3
+2 3 4
+Sample Output 1:
+yes
+
+Sample Input 2:
+3
+0 0 0
+0 0 0
+1 0 0
+Sample Output 2:
+no
+*/
+
+fun f2(num : Int){
+    var flag : Boolean = true
+    //Заводим двумерный массив и заносим в нём значения - способ 1
+    var matrix = Array(num){Array(num){0}}
+    for (i in 0 until num) {
+        val row = readLine()!!.split(" ").map { it.toInt() }
+        for (j in 0 until num) {
+            matrix[i][j] = row[j]
+        }
+    }
+    /* Способ 2
+    val nums = readLine()!!.split(" ").map { it.toInt() }
+    var index = 0
+    for (i in 0 until num) {
+        for (j in 0 until num) {
+            matrix[i][j] = nums[index]
+            index++
+        }
+    }
+    */
+    for (i in 0 until num){
+        for (j in 0 until num){
+            if (matrix[i][j] != matrix[j][i]) {
+                flag = false
+                break
+            }
+        }
+        if (!flag) break
+    }
+    if (flag) println("yes") else println("no")
+}
+
+fun main(){
+    var num : Int = readLine()!!.toInt()
+    f2(num)
+}
