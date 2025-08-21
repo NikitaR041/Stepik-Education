@@ -165,12 +165,56 @@ Sample Output 2:
 0 0
 0 0
 */
-fun fun4(){}
+
+// fun fun4(pair_numbers: Pair<Int,Int>, W: Int, pairs: Array<Pair<Int, Int>>){
+//     val field = Array(pair_numbers.first) { Array(pair_numbers.second){"0"}} // Поле с нулями
+//     for (index in 0 until W){
+//         field[pair_numbers.first, pair_numbers.second] = "*"
+//     }
+     
+// }
+
+// fun main(){
+//     val (N,M) = readLine()!!.split(" ").map{it.toInt()}
+//     val pair_numbres = Pair(N,M) //Первый способ создание пары - обращение через .first, .second
+//     /*val pair_numbers = N to M - второй способ создания пары */
+//     val W = readLine()!!.toInt()
+//     val pairs : Array<Pair<Int, Int>> = Array(count_pairs){0 to 0}
+    
+// }
+fun fun4(N:Int, M:Int, W:Int, cordMins:Array<Pair<Int,Int>>){
+    val field = Array(N, {Array(M){0}}) //Двумерный массив с размерами N и M
+    for (i in 0 until W) { // Устанавливаем мины
+        field[cordMins[i].first - 1][cordMins[i].second - 1] = -1
+    }
+    // направления для проверки 8 соседей
+    val dx = listOf(-1, -1, -1, 0, 0, 1, 1, 1)
+    val dy = listOf(-1, 0, 1, -1, 1, -1, 0, 1)
+    
+    for((x,y) in cordMins){
+        for (distinct in dx.indices){
+            var tmp_x = (x - 1) + dx[distinct]
+            var tmp_y = (y - 1) + dy[distinct]
+            if(tmp_x in 0 until N && tmp_y in 0 until M && field[tmp_x][tmp_y] != -1){
+                field[tmp_x][tmp_y] += 1
+            }
+        }
+    }
+    // выводим поле
+    for (i in 0 until N) {
+        val row = field[i].map { if (it == -1) "*" else it.toString() }
+        println(row.joinToString(" "))
+    }
+}
 
 fun main(){
-    val (N,M) = readLine()!!.split(" ").toInt()
-    val pair_numbres = Pair(N,M) //Первый способ создание пары - обращение через .first, .second
-    /*val pair_numbers = N to M - второй способ создания пары */
+    val (N, M) = readLine()!!.split(" ").map{it.toInt()}
     val W = readLine()!!.toInt()
-    //Здесь нужно придумать, как теперь занести значение-пар в массив?
+    //Заносим пары в массив
+    val cordMins: Array<Pair<Int,Int>> = Array(W){0 to 0} //Либо Array(W, Pair(0,0))
+    for (i in 0 until W){
+        val (a,b) = readLine()!!.split(" ").map{it.toInt()}
+        cordMins[i] = Pair(a,b)
+    }
+    fun4(N,M,W,cordMins)
 }
