@@ -207,6 +207,7 @@ fun fun4(N:Int, M:Int, W:Int, cordMins:Array<Pair<Int,Int>>){
     }
 }
 
+/*
 fun main(){
     val (N, M) = readLine()!!.split(" ").map{it.toInt()}
     val W = readLine()!!.toInt()
@@ -217,4 +218,57 @@ fun main(){
         cordMins[i] = Pair(a,b)
     }
     fun4(N,M,W,cordMins)
+}
+*/
+
+/*
+Задача 5.
+Дан двумерный массив массив N×M. 
+Требуется повернуть его по часовой стрелке на 90 градусов.
+
+Входные данные
+На первой строке даны натуральные числа N и M(1≤N, M≤50). 
+На следующих N строках записано по M неотрицательных чисел, не превышающих 10^9 – сам массив. 
+Числа по модулю не превышают 2^31-1.
+
+Выходные данные
+Выведите повернутый массив в формате входных данных.
+
+Sample Input:
+
+3 4
+1 2 3 4
+5 6 7 8
+9 10 11 12
+Sample Output:
+
+4 3
+9 5 1 
+10 6 2 
+11 7 3 
+12 8 4 
+*/
+
+fun f5(N:Int, M:Int){
+    val matrixNM = Array(N){Array(M){0}}
+    for (i in 0 until N){ 
+        val tmp_massive = readLine()!!.split(" ").map{it.toInt()}
+        for (j in 0 until M){
+            matrixNM[i][j] = tmp_massive[j]
+        }
+    }
+    val newMatrixNM = Array(M){Array(N){0}}
+    for (i in 0 until N){
+        for (j in 0 until M){
+            newMatrixNM[j][N-i-1] = matrixNM[i][j]
+        }
+    }
+    for (row in newMatrixNM){
+        println(row.joinToString(" "))
+    }
+}
+
+fun main(){
+    val (N, M) = readLine()!!.split(" ").map{it.toInt()}
+    f5(N,M)
 }
