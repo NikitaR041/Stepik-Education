@@ -268,7 +268,55 @@ fun f5(N:Int, M:Int){
     }
 }
 
+/*
 fun main(){
     val (N, M) = readLine()!!.split(" ").map{it.toInt()}
     f5(N,M)
 }
+*/
+
+/*
+Задача 6.
+В прямоугольной таблице N×M в начале игрок находится в левой верхней клетке. 
+За один ход ему разрешается перемещаться в соседнюю клетку либо вправо, либо вниз 
+(влево и вверх перемещаться запрещено). 
+Посчитайте, сколько есть способов у игрока попасть в правую нижнюю клетку.
+
+Формат входных данных
+Вводятся два числа N и M - размеры таблицы (1≤N≤10, 1≤M≤10).
+
+Формат выходных данных
+Выведите искомое количество способов.
+
+Sample Input:
+1 10
+Sample Output:
+1
+*/
+
+fun f6(N:Int, M:Int){
+    val field = Array(N, {Array(M){1}}) //Двумерный массив с размерами N и M
+    
+    for (i in 0 until N){
+        for (j in 0 until M){
+            when {
+                i == 0 && j > 0 -> field[i][j] = field[i][j-1] 
+                i > 0 && j == 0 -> field[i][j] = field[i-1][j] 
+                i > 0 && j > 0 -> field[i][j] = field[i-1][j] + field[i][j-1]
+                else -> continue  
+            }
+        }
+    }
+
+    for (row in field){
+        println(row.joinToString(" "))
+    }
+    println(field[N-1][M-1])
+}
+
+/*
+fun main(){
+    val (N, M) = readLine()!!.split(" ").map{it.toInt()}
+    f6(N, M)
+}
+*/
