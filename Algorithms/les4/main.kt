@@ -368,7 +368,83 @@ fun f7(N:Int, M:Int){
         println()
     }
 }
+/*
 fun main(){
     val (N, M) = readLine()!!.split(" ").map{it.toInt()}
     f7(N, M)
+}
+*/
+
+/*
+Задача 8.
+Заполнение спиралью.
+Дано число n. 
+Создайте массив A[2*n+1][2*n+1] и заполните его по спирали, начиная с числа 0 в центральной клетке A[n+1][n+1]. 
+Спираль выходит вверх, далее закручивается против часовой стрелки.
+
+Входные данные
+Программа получает на вход одно число 0 ≤ n < 2^31.
+
+Выходные данные
+Программа должна вывести  полученный массив, отводя на вывод каждого числа не менее 3 символов.
+Однозначное значение выравнивается по середине. Более длинные числа выравниваются слева.
+Sample Input 1:
+
+2
+Sample Output 1:
+
+12 11 10  9 24 
+13  2  1  8 23 
+14  3  0  7 22 
+15  4  5  6 21 
+16 17 18 19 20 
+Sample Input 2:
+
+1
+Sample Output 2:
+
+ 2  1  8 
+ 3  0  7 
+ 4  5  6 
+*/
+fun f9(N: Int){
+    var matrixTwoNAddPlus = Array(2*N+1){Array(2*N+1){0}}
+    var size = (2*N+1)
+    var tmp_x = N
+    var tmp_y = N
+    var count_move = 0 // Обход массива - должен достичь того же размера, что и N
+    //Направления - Вверх,Вниз,Влево,Вправо - это не правильно
+    // var dx = arrayOf(-1, 1, 0, 0)
+    // var dy = arrayOf(0, 0, -1, 1)
+    // Вверх, влево, вниз, вправо (по часовой/против часовой)
+    val dx = arrayOf(-1, 0, 1, 0)
+    val dy = arrayOf(0, -1, 0, 1)
+
+    var step = 1 //Изначальный шаг (движения по спирали)
+    var dir = 0 //Изначальный индекс
+
+    while (count_move < size * size - 1) {
+        for (index in 0 until 2){ // дважды увеличиваем длину шага
+            for (i in 0 until step) {
+                if (count_move == size * size - 1) break
+                tmp_x += dx[dir]
+                tmp_y += dy[dir]
+                count_move++
+                matrixTwoNAddPlus[tmp_x][tmp_y] = count_move
+            }
+            dir = (dir + 1) % 4 // поворот
+        }
+        step++
+    }
+    for (row in matrixTwoNAddPlus) {
+        for (value in row) {
+            print("%3d ".format(value))
+        }
+        println()
+    }
+}
+
+fun main(){
+    var N : Int = readLine()!!.toInt() //Есть центр клетки в матрице
+    f9(N)
 }
