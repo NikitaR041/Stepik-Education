@@ -22,7 +22,7 @@ class LinkedList {
             т.е. меняем у head указатель на указатель new_node, т.е. head - своеобразный помощник
     */
     fun insert_at_beginning(val data: Int){
-        val new_node : Node = Node(data) //(1)
+        var new_node : Node = Node(data) //(1)
         new_node.next = this.head //(2)
         this.head = new_node //(3)
     }
@@ -38,13 +38,13 @@ class LinkedList {
             так как ждет другой новой переменной
     */
     fun insert_at_end(val data: Int){
-        val new_node : Node = Node(data) // (1)
+        var new_node : Node = Node(data) // (1)
         if (this.head == null){ // (2)
             new_node.next = this.head // (?) -  по идеи как правильно
             this.head = new_node
             return
         }
-        val last : Node = this.head //(3)
+        var last : Node = this.head //(3)
         while (last?.next != null){ //(4)
             last = last.next
         }
@@ -52,8 +52,29 @@ class LinkedList {
     }
 
     //Удаление узла по заданному ключу (значению data)
+    /*
+        (1) - Создаем временную переменную и указываем, что оно будет головой
+        (2) - Проверка на то, что является ли current первым (т.е. головой) объектом для удаления
+        (3) - Иначе создаем вторую временную переменную для запоминания предыдущих узлов
+        (4) - Проверка на то, что является ли current серединным или песледним объектом для удаления
+        (5) - Проверка на то, что если не нашли объекта, то выход
+        (6) - Удаляем эту переменную (т.е. происходит разрыв связи и старая переменная удаляется благодаря автоматизации мусоросборника)    
+    */
     fun delete_node(key: Int){
-
+        var current : Node = this.head //(1)
+        if (current != null && current.data == key){ //(2)
+            this.head = current.next
+            //current = null // (?) - по идеи как нужно здесь, хотя есть встроенный мусоросборник
+            return 
+        }
+        var prev : Node? = null //(3)
+        while (current != null && current.data != key){ //(4)
+            prev = current
+            current = current.next
+        }
+        if (current == null) return //(5)
+        
+        prev?.next = current.next //(6)
     }
 }
 /*
