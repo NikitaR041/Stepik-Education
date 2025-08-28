@@ -7,7 +7,7 @@
 Реализация односвязного списка - простейший случай
 */
 
-class Node(val data: Int, val next: Node? = null) { }
+class Node(var data: Int, var next: Node? = null) { }
 
 class LinkedList {
     private var head: Node? = null
@@ -21,7 +21,7 @@ class LinkedList {
         (3) - Передаем старой переменной head типа Node новый объект new_node типа Node -
             т.е. меняем у head указатель на указатель new_node, т.е. head - своеобразный помощник
     */
-    fun insert_at_beginning(val data: Int){
+    fun insert_at_beginning(data: Int){
         var new_node : Node = Node(data) //(1)
         new_node.next = this.head //(2)
         this.head = new_node //(3)
@@ -37,14 +37,14 @@ class LinkedList {
         (5) - Присваиваем "условную" голову last указатель переменной new_node, а сам new_node.next будет хранить null, 
             так как ждет другой новой переменной
     */
-    fun insert_at_end(val data: Int){
+    fun insert_at_end(data: Int){
         var new_node : Node = Node(data) // (1)
         if (this.head == null){ // (2)
             new_node.next = this.head // (?) -  по идеи как правильно
             this.head = new_node
             return
         }
-        var last : Node = this.head //(3)
+        var last : Node? = this.head //(3)
         while (last?.next != null){ //(4)
             last = last.next
         }
@@ -61,7 +61,7 @@ class LinkedList {
         (6) - Удаляем эту переменную (т.е. происходит разрыв связи и старая переменная удаляется благодаря автоматизации мусоросборника)    
     */
     fun delete_node(key: Int){
-        var current : Node = this.head //(1)
+        var current : Node? = this.head //(1)
         if (current != null && current.data == key){ //(2)
             this.head = current.next
             //current = null // (?) - по идеи как нужно здесь, хотя есть встроенный мусоросборник
@@ -79,7 +79,7 @@ class LinkedList {
 
     //Поиск узла по его значению
     fun search(key: Int) : Boolean{
-        var current : Node = this.head
+        var current : Node? = this.head
         while (current != null){
             if (current.data == key) return true
             current = current.next
@@ -90,7 +90,7 @@ class LinkedList {
     //Возвращает количество узлов в списке
     fun get_size() : Int {
         var count : Int = 0
-        var current : Node = this.head
+        var current : Node? = this.head
         while (current != null){
             count += 1
             current = current.next
@@ -100,7 +100,7 @@ class LinkedList {
 
     //Выводит данные узлов на экран, начиная с головы
     fun print_list (){
-        var current : Node = this.head
+        var current : Node? = this.head
         while (current != null){
             print("&{current.data} ->")
             current = current.next
