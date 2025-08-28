@@ -102,12 +102,112 @@ class LinkedList {
     fun print_list (){
         var current : Node? = this.head
         while (current != null){
-            print("&{current.data} ->")
+            print("${current.data} -> ")
             current = current.next
         }
         println("None")
     }
+
+    /* Дополнительные функции к односвязному списку */
+
+    /*
+        Поворот односвязного списка
+        Инвертировать порядок элементов в односвязном списке
+
+        1)Инициализируем три указателя: prev как None, current как начальный узел списка (head) и next как None. 
+            Эти указатели помогут нам изменить направление связей между узлами.
+        2)Перебираем список, перемещая каждый узел так, чтобы его указатель next ссылался на предыдущий узел.
+        3)В конце процесса head списка указывает на новую голову, которая была последним узлом исходного списка.
+    */
+    fun reverse_linked_list() : Node? {
+        var prev : Node? = null
+        var current : Node? = this.head
+        while (current != null){
+            var next_tmp : Node? = current.next
+            current.next = prev
+            prev = current
+            current = next_tmp
+        }
+        this.head = prev
+        return this.head
+    }
+
+    /*
+        Поиск цикла в односвязном списке
+        Определить, содержит ли односвязный список цикл
+        (алгоритм Флойда, или "заяц и черепаха"):
+        1)Используем два указателя, которые движутся с разной скоростью: один делает один шаг за итерацию (медленный), другой — два шага (быстрый).
+        2)Если список содержит цикл, быстрый и медленный указатели встретятся в какой-то момент. 
+            Если встречи не произойдет до того, как быстрый указатель достигнет конца списка, цикла в списке нет.
+    */
+    fun has_cycle() : Boolean {
+        var slow : Node? = this.head
+        var fast : Node? = this.head
+        while (fast != null && fast?.next != null){
+            slow = slow?.next
+            fast = fast?.next?.next
+            if (slow == fast) return true
+        }
+        return false
+    }
+
+    /*
+        Слияние двух отсортированных односвязных списков
+        Слияние двух отсортированных односвязных списков в один отсортированный список
+
+        1)Инициализируем новый список с фиктивным начальным узлом (dummy), который будет использоваться для упрощения вставки элементов.
+        2)Сравниваем элементы в начале каждого списка и добавляем меньший из них в конец нового списка.
+        3)Повторяем, пока один из списков не будет полностью добавлен в новый список.
+        4)В конце, если в одном из списков остались элементы, добавляем их в конец нового списка.
+    */
+    fun merge_two_lists(l1 : Node?, l2 : Node?) : Node? {
+        var dummy : Node = Node(0)
+        var tail : Node = dummy
+        var first = l1
+        var second = l2
+        while (first!= null && second != null){
+            if (first.data < second.data){
+                tail.next = first
+                first= first.next
+            } else {
+                tail.next = second
+                second = second.next
+            }
+            tail = tail.next!!
+        }
+        if (first!= null) tail.next = first
+        if (second != null) tail.next = second
+        return dummy.next
+    }
 }
+
+
+// Точка входа
+/*
+fun main() {
+    val list = LinkedList()
+
+    println("Добавляем элементы в список...")
+    list.insert_at_end(10)
+    list.insert_at_end(20)
+    list.insert_at_end(30)
+    list.insert_at_beginning(5)
+    list.print_list()
+
+    println("\nУдаляем элемент 20:")
+    list.delete_node(20)
+    list.print_list()
+
+    println("\nПроверяем наличие элемента 30:")
+    println("Есть ли 30? ${list.search(30)}")
+
+    println("\nПроверяем наличие элемента 100:")
+    println("Есть ли 100? ${list.search(100)}")
+
+    println("\nРазмер списка:")
+    println(list.get_size())
+}*/
+
 /*
 Задача 1.
 Удалите из односвязного списка все узлы с заданным значением.
@@ -177,8 +277,10 @@ fun f2(n_size:Int, my_list:MutableList<Int>) : Int {
     return my_list.get(middle)
 }
 
+/*
 fun main(){
     var n_size : Int = readLine()!!.toInt()
     var my_list : MutableList<Int> = readLine()!!.split(" ").map{it.toInt()}.toMutableList()
     println(f2(n_size, my_list))
 }
+*/
