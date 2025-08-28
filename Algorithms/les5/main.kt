@@ -76,6 +76,37 @@ class LinkedList {
         
         prev?.next = current.next //(6)
     }
+
+    //Поиск узла по его значению
+    fun search(key: Int) : Boolean{
+        var current : Node = this.head
+        while (current != null){
+            if (current.data == key) return true
+            current = current.next
+        }
+        return false
+    }
+
+    //Возвращает количество узлов в списке
+    fun get_size() : Int {
+        var count : Int = 0
+        var current : Node = this.head
+        while (current != null){
+            count += 1
+            current = current.next
+        }
+        return count
+    }
+
+    //Выводит данные узлов на экран, начиная с головы
+    fun print_list (){
+        var current : Node = this.head
+        while (current != null){
+            print("&{current.data} ->")
+            current = current.next
+        }
+        println("None")
+    }
 }
 /*
 Задача 1.
