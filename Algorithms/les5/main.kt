@@ -102,10 +102,11 @@ class LinkedList {
     fun print_list (){
         var current : Node? = this.head
         while (current != null){
-            print("${current.data} -> ")
+            // print("${current.data} -> ")
+            print("${current.data} ")
             current = current.next
         }
-        println("None")
+        // println("None")
     }
 
     /* Дополнительные функции к односвязному списку */
@@ -149,6 +150,7 @@ class LinkedList {
             if (slow == fast) return true
         }
         return false
+        
     }
 
     /*
@@ -252,6 +254,24 @@ fun main(){
     println(if (result.isEmpty()) "None" else result.joinToString(" "))
 }*/
 
+/*
+fun main(){
+    val list = LinkedList()
+    var n_size : Int = readLine()!!.toInt()
+    var numbers = readLine()!!.split(" ").map{it.toInt()}.toIntArray()
+    var find_num : Int = readLine()!!.toInt()
+
+    for (elem in numbers){
+        list.insert_at_end(elem)
+    }
+
+    if (list.search(find_num) == true){
+        list.delete_node(find_num)
+        list.print_list()
+    }
+    if (list.get_size() == 0) println("None")
+}
+*/
 /*
 Задача 2.
 Найдите срединный элемент в односвязном списке. 

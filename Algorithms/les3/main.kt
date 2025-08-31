@@ -1,5 +1,5 @@
 /*
-Раздел посвященный структурам данных
+Раздел посвященный алгоритмам и структурам данных
 Глава 1. Массивы.
 */
 
@@ -297,3 +297,44 @@ fun main(){
     f8(numbers)
     println(numbers.joinToString(" "))
 }*/
+
+/*
+Задание 8
+У вас есть массив чисел и целое число k. Сдвиньте массив вправо на k шагов.
+Формат входных данных:
+Первая строка содержит число n (1 ≤ n ≤ 10^5).
+На второй строке находятся n целых чисел (1 ≤ a_i ≤ 10^9), разделенных пробелами.
+Третья строка содержит целое число k (0 ≤ k < n).
+
+Формат выходных данных:
+Полученный массив чисел, выведенный через пробел.
+
+Sample Input:
+5
+1 2 3 4 5
+2
+Sample Output:
+4 5 1 2 3
+*/
+fun swapUppdate(n_size: Int, numbers:IntArray, count_n:Int){
+    var tmp_numbers = arrayOfNulls<Int>(n_size)
+    var index_elem : Int = 0
+    for (index in (numbers.lastIndex - count_n + 1)..numbers.lastIndex) {
+        tmp_numbers[index_elem] = numbers[index]   // <-- правильно!
+        index_elem++
+    }
+
+    // Копируем остальные элементы
+    for (index in 0..numbers.lastIndex - count_n) {
+        tmp_numbers[index_elem] = numbers[index]
+        index_elem++
+    }
+    println(tmp_numbers.joinToString(" "))
+}
+
+fun main(){
+    var n_size : Int = readLine()!!.toInt()
+    var numbers = readLine()!!.split(" ").map{it.toInt()}.toIntArray()
+    var count_n : Int = readLine()!!.toInt()
+    swapUppdate(n_size, numbers, count_n)
+}
